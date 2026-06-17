@@ -1,5 +1,5 @@
 /**
- * models/User.js
+ * schemas/User.js
  * Mongoose User schema with bcrypt pre-save password hashing.
  */
 const mongoose = require('mongoose');

@@ -12,7 +12,7 @@ const axios = require('axios');
 
 const authRoutes = require('./routes/auth');
 const { authenticateSocket } = require('./middleware/auth');
-const Conversation = require('./models/Conversation');
+const Conversation = require('./schemas/Conversation');
 
 // ─── App Setup ────────────────────────────────────────────────────────────────
 const app = express();

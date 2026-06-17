@@ -4,7 +4,7 @@
  */
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../schemas/User');
 const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
@@ -159,7 +159,7 @@ router.get('/me', authenticateToken, async (req, res) => {
 // ─── GET /api/auth/sessions ───────────────────────────────────────────────────
 router.get('/sessions', authenticateToken, async (req, res) => {
   try {
-    const Session = require('../models/Session');
+    const Session = require('../schemas/Session');
     const sessions = await Session.find({ userId: req.user._id })
       .sort({ createdAt: -1 })
       .limit(20)

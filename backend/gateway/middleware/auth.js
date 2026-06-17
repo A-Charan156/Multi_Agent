@@ -3,7 +3,7 @@
  * JWT verification middleware for Express routes and Socket.io connections.
  */
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../schemas/User');
 
 /**
  * Express middleware — verify Bearer JWT token from Authorization header.

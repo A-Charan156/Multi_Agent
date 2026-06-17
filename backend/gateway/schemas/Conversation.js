@@ -1,5 +1,5 @@
 /**
- * models/Conversation.js
+ * schemas/Conversation.js
  * Chronological multi-turn interaction schema.
  */
 const mongoose = require('mongoose');

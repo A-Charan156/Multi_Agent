@@ -1,5 +1,5 @@
 /**
- * models/Session.js
+ * schemas/Session.js
  * Mongoose Session schema tracking debate sessions in MongoDB "Agents" collection.
  */
 const mongoose = require('mongoose');

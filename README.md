@@ -9,7 +9,7 @@
 
 ### 1. AI Service (Terminal 1)
 ```bash
-cd ai-service
+cd backend/ai-service
 pip install -r requirements.txt
 python main.py
 # Runs on http://localhost:8000
@@ -17,7 +17,7 @@ python main.py
 
 ### 2. Gateway (Terminal 2)
 ```bash
-cd gateway
+cd backend/gateway
 npm install
 npm run dev
 # Runs on http://localhost:3001
@@ -34,12 +34,13 @@ npm run dev
 ## 📁 Project Structure
 ```
 multiagent1/
-├── ai-service/     # Python FastAPI + LangGraph
-├── gateway/        # Node.js Express + Socket.io
-└── frontend/       # React TypeScript + Vite
+├── backend/
+│   ├── ai-service/     # Python FastAPI + LangGraph
+│   └── gateway/        # Node.js Express + Socket.io
+└── frontend/           # React TypeScript + Vite
 ```
 
 ## 🔧 Environment Variables
-- `ai-service/.env` — GEMINI_API_KEY
-- `gateway/.env` — MONGO_ATLAS_URI, JWT_SECRET, AI_SERVICE_URL
+- `backend/ai-service/.env` — GEMINI_API_KEY
+- `backend/gateway/.env` — MONGO_ATLAS_URI, JWT_SECRET, AI_SERVICE_URL
 # multiagent

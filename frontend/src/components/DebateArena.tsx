@@ -121,7 +121,7 @@ const DebateArena: React.FC = () => {
       if (msg.includes('auth') || msg.includes('token') || msg.includes('jwt')) {
         setErrorMessage('Authentication error — please logout and login again.');
       } else if (msg.includes('refused') || msg.includes('econnrefused')) {
-        setErrorMessage('Gateway server is offline. Start it with: cd gateway && node server.js');
+        setErrorMessage('Gateway server is offline. Start it with: cd backend/gateway && node server.js');
       } else {
         setErrorMessage('Could not reach gateway (port 3001). Check that the gateway is running.');
       }

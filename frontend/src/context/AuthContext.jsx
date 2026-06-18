@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 const AuthContext = createContext(void 0);
-const API_BASE = "http://localhost:3001";
+const API_BASE = import.meta.env.VITE_GATEWAY_URL || "http://localhost:3001";
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem("arena-token"));

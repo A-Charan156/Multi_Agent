@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import AgentTimeline from "./AgentTimeline";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
-const GATEWAY_URL = "http://localhost:3001";
+const GATEWAY_URL = import.meta.env.VITE_GATEWAY_URL || "http://localhost:3001";
 const EXAMPLE_QUERIES = [
   "Should I use GraphQL or REST API for a high-traffic mobile app with 1M+ users?",
   "Microservices vs Monolith for a fintech startup that needs to scale fast?",

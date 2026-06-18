@@ -1,0 +1,52 @@
+services:
+  # 1. AI Service (Python FastAPI)
+  - type: web
+    name: ai-service
+    env: python
+    repo: https://github.com/bonamnikhilsai/Multi_Agent.git
+    rootDir: backend/ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: RESEARCHER_XAI_KEY
+        sync: false
+      - key: CRITIC_XAI_KEY
+        sync: false
+      - key: SYNTHESIZER_XAI_KEY
+        sync: false
+
+  # 2. Gateway Service (Node.js)
+  - type: web
+    name: gateway-service
+    env: node
+    repo: https://github.com/bonamnikhilsai/Multi_Agent.git
+    rootDir: backend/gateway
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_ATLAS_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: AI_SERVICE_URL
+        fromService:
+          type: web
+          name: ai-service
+          property: url
+
+  # 3. Frontend (Vite React)
+  - type: web
+    name: frontend-ui
+    env: static
+    repo: https://github.com/bonamnikhilsai/Multi_Agent.git
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_GATEWAY_URL
+        fromService:
+          type: web
+          name: gateway-service
+          property: url

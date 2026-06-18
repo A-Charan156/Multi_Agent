@@ -81,12 +81,13 @@ async def stream_debate(request: DebateRequest):
                     node = event["metadata"].get("langgraph_node")
                     chunk = event["data"]["chunk"].content
                     if chunk:
+                        safe_chunk = chunk.replace("\n", "__ARENA_NL__")
                         if node == "researcher":
-                            yield f"data: [RESEARCHER]{chunk}\n\n"
+                            yield f"data: [RESEARCHER]{safe_chunk}\n\n"
                         elif node == "critic":
-                            yield f"data: [CRITIC]{chunk}\n\n"
+                            yield f"data: [CRITIC]{safe_chunk}\n\n"
                         elif node == "synthesizer":
-                            yield f"data: [SYNTHESIZER]{chunk}\n\n"
+                            yield f"data: [SYNTHESIZER]{safe_chunk}\n\n"
 
             yield "data: [DONE]\n\n"
 

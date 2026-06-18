@@ -11,7 +11,7 @@ const cors = require('cors');
 const axios = require('axios');
 
 const authRoutes = require('./routes/auth');
-const { authenticateSocket } = require('./middleware/auth');
+const { authenticateSocket, authenticateToken } = require('./middleware/auth');
 const Conversation = require('./schemas/Conversation');
 
 // ─── App Setup ────────────────────────────────────────────────────────────────
@@ -37,6 +37,33 @@ app.get('/health', (req, res) => {
 
 // ─── Auth Routes ──────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
+
+// ─── Conversations History Routes ──────────────────────────────────────────────
+app.get('/api/conversations', authenticateToken, async (req, res) => {
+  try {
+    const conversations = await Conversation.find({ userId: req.user._id })
+      .sort({ updatedAt: -1 })
+      .limit(50);
+    res.json({ success: true, conversations });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.get('/api/conversations/:id', authenticateToken, async (req, res) => {
+  try {
+    const conversation = await Conversation.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+    if (!conversation) {
+      return res.status(404).json({ success: false, message: 'Conversation not found' });
+    }
+    res.json({ success: true, conversation });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 
 // ─── MongoDB Atlas Connection ─────────────────────────────────────────────────
 const connectDB = async () => {
@@ -183,6 +210,9 @@ io.on('connection', (socket) => {
             role = 'synthesizer'; 
             content = rawData.replace('[SYNTHESIZER]', ''); 
           }
+
+          // Unescape __ARENA_NL__ back to real newlines
+          content = content.replace(/__ARENA_NL__/g, '\n');
 
           // Emit to client
           socket.emit('agent_chunk', { role, content, sessionId: conversation._id.toString() });

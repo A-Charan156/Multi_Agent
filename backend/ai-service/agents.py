@@ -30,11 +30,19 @@ def get_critic_model() -> ChatGroq:
         request_timeout=90,
     )
 
-def get_synthesizer_model() -> ChatGroq:
-    """llama-3.3-70b-versatile — deep reasoning judge and code generator."""
+def get_synthesizer_model():
+    """Gemini 2.5 Flash (or Groq llama fallback) — deep reasoning judge and code generator."""
+    api_key = os.getenv("SYNTHESIZER_XAI_KEY")
+    if api_key and not api_key.startswith("gsk_"):
+        from langchain_google_genai import ChatGoogleGenerativeAI
+        return ChatGoogleGenerativeAI(
+            model="gemini-2.5-flash",
+            api_key=api_key,
+            temperature=0.25,
+        )
     return ChatGroq(
         model="llama-3.3-70b-versatile",
-        api_key=os.getenv("SYNTHESIZER_XAI_KEY"),
+        api_key=api_key,
         temperature=0.25,
         max_retries=3,
         request_timeout=120,

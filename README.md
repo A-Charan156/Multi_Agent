@@ -1,10 +1,10 @@
 # Multi-Agent Debate Arena
 
 ## 📖 Professional Summary
-The Multi-Agent Debate Arena is a comprehensive, microservices-based platform designed to facilitate real-time, AI-driven debates. Leveraging a robust monorepo structure, the application integrates a high-performance Python-based AI service, a scalable Node.js API gateway, and a modern, responsive React frontend. It utilizes LangGraph and Gemini for advanced agentic interactions, MongoDB for persistent storage, and WebSocket communication (Socket.io) for seamless, real-time data flow between the AI agents and the user interface.
+The Multi-Agent Debate Arena is a comprehensive platform designed to facilitate real-time, AI-driven debates. Leveraging a robust monorepo structure, the application integrates a high-performance Python-based AI service, a scalable Node.js API gateway, and a modern, responsive React frontend. It utilizes LangGraph and Gemini for advanced agentic interactions, MongoDB for persistent storage, and WebSocket communication (Socket.io) for seamless, real-time data flow between the AI agents and the user interface.
 
 ## 🏗️ Software Development Architecture
-The system follows a modern three-tier microservices architecture:
+The system follows a modern three-tier architecture:
 
 1. **Frontend Presentation Layer (React + TypeScript + Vite)**
    - Delivers a fast, interactive user interface.
